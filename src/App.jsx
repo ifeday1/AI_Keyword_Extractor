@@ -1,16 +1,12 @@
-import { React, useState } from 'react'
-import { Container, Box } from '@chakra-ui/react'
-import { color } from 'framer-motion'
+import { useState } from 'react';
+import { Container, Box } from '@chakra-ui/react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import TextInput from './components/TextInput';
-
-
-
+import KeywordsModal from './components/KeywordsModal';
 
 const App = () => {
-
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -52,15 +48,25 @@ const App = () => {
     }
   };
 
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Box bg={'blue.600'} color='white' height='100vh' paddingTop={130} >
+    <Box bg='blue.600' color='white' height='100vh' paddingTop={130}>
       <Container maxW='3xl' centerContent>
         <Header />
         <TextInput extractKeywords={extractKeywords} />
-        < Footer />
+        <Footer />
       </Container>
+      <KeywordsModal
+        keywords={keywords}
+        loading={loading}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </Box>
-  )
-}
+  );
+};
 
 export default App;
